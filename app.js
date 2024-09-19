@@ -42,7 +42,7 @@ async function processFile() {
 }
 
 async function uploadToGitHub(fileBlob) {
-    const token = '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';  // Replace with a GitHub token
+    const token = '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';  // Replace with a GitHub token
     const username = 'j1L860';
     const repo = '7';
     const path = '/blob/main/updated_input.txt';
