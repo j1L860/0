@@ -18,3 +18,62 @@
     <script src="app.js"></script>
 </body>
 </html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload TXT File to GitHub</title>
+</head>
+<body>
+    <h1>Upload a TXT File to GitHub</h1>
+    <input type="file" id="fileInput" accept=".txt">
+    <button onclick="uploadToGithub()">Upload to GitHub</button>
+
+    <script>
+    async function uploadToGithub() {
+        const file = document.getElementById('fileInput').files[0];
+        if (!file) {
+            alert('Please select a file');
+            return;
+        }
+
+        const content = await file.text();
+        const encodedContent = btoa(content);
+
+        const data = {
+            message: "Upload file via web interface",
+            content: encodedContent
+        };
+
+        const username = 'j1L860';
+        const repo = '0';
+        const path = 'file.txt';
+        const token = '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';
+
+        fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`, {
+            method: 'PUT',
+            headers: {
+                'Authorization': `token ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.content) {
+                alert('File uploaded successfully!');
+            } else {
+                alert('Error uploading file: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while uploading the file.');
+        });
+    }
+    </script>
+</body>
+</html>
