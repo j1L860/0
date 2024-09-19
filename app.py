@@ -7,7 +7,7 @@ import requests
 app = Flask(__name__)
 
 GITHUB_REPO = "j1L860/0"
-GITHUB_TOKEN = "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"  # Replace with your GitHub Token
+GITHUB_TOKEN = "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"  # Replace with your GitHub Token
 GITHUB_USERNAME = "j1L860"
 
 def preprocess_input_file(input_filepath, output_filepath):
