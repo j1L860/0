@@ -1,78 +1,67 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>yDNA SNP Analysis</title>
+    <title>Upload TXT to GitHub</title>
 </head>
 <body>
-    <h1>yDNA SNP Analysis</h1>
-    <form id="uploadForm">
-        <label for="inputFile">Upload Input File (FileS.txt):</label>
-        <input type="file" id="inputFile" accept=".txt"><br><br>
-        <button type="button" onclick="processFile()">Process File</button>
-    </form>
-    <div id="output"></div>
-
-    <script src="app.js"></script>
-</body>
-</html>
-
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload TXT File to GitHub</title>
-</head>
-<body>
-    <h1>Upload a TXT File to GitHub</h1>
+    <h1>Upload TXT File to GitHub</h1>
     <input type="file" id="fileInput" accept=".txt">
-    <button onclick="uploadToGithub()">Upload to GitHub</button>
+    <input type="password" id="tokenInput" placeholder="Enter your GitHub token">
+    <button onclick="uploadFile()">Upload</button>
 
     <script>
-    async function uploadToGithub() {
+    async function uploadFile() {
         const file = document.getElementById('fileInput').files[0];
-        if (!file) {
-            alert('Please select a file');
+        const token = document.getElementById('tokenInput').value;
+
+        if (!file || !file.name.endsWith('.txt')) {
+            alert('Please select a .txt file');
+            return;
+        }
+
+        if (!token) {
+            alert('Please enter your GitHub token');
             return;
         }
 
         const content = await file.text();
-        const encodedContent = btoa(content);
+        const encodedContent = btoa(unescape(encodeURIComponent(content)));
 
-        const data = {
-            message: "Upload file via web interface",
+        const github = {
+            owner: 'j1l860',
+            repo: '0',
+            path: filettt.txt,
+            message: 'Uploaded via web interface',
             content: encodedContent
         };
 
-        const username = 'j1L860';
-        const repo = '0';
-        const path = 'file.txt';
-        const token = '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';
+        const apiUrl = `https://api.github.com/repos/${github.owner}/${github.repo}/contents/${github.path}`;
 
-        fetch(`https://api.github.com/repos/${username}/${repo}/contents/${path}`, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `token ${token}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.content) {
+        try {
+            const response = await fetch(apiUrl, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: github.message,
+                    content: github.content
+                })
+            });
+
+            const data = await response.json();
+            if (response.ok) {
                 alert('File uploaded successfully!');
             } else {
-                alert('Error uploading file: ' + data.message);
+                throw new Error(data.message || 'Upload failed');
             }
-        })
-        .catch(error => {
+        } catch (error) {
             console.error('Error:', error);
-            alert('An error occurred while uploading the file.');
-        });
+            alert('Upload failed: ' + error.message);
+        }
     }
     </script>
 </body>
