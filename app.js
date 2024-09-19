@@ -12,7 +12,7 @@ async function processFile() {
     const fileContent = await file.text();
 
     // Fetch reference data from GitHub
-    const refDataUrl = 'https://raw.githubusercontent.com/your-username/your-repository/main/j_hg38_ref.txt';
+    const refDataUrl = 'https://raw.githubusercontent.com/j1L860/7/blob/main/j_hg38_ref.txt';
     const refResponse = await fetch(refDataUrl);
     const referenceData = await refResponse.text();
 
