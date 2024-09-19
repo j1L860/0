@@ -42,10 +42,10 @@ async function processFile() {
 }
 
 async function uploadToGitHub(fileBlob) {
-    const token = 'YOUR_GITHUB_TOKEN';  // Replace with a GitHub token
-    const username = 'your-username';
-    const repo = 'your-repository';
-    const path = 'https://github.com/j1L860/7/blob/main/updated_input.txt';
+    const token = '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';  // Replace with a GitHub token
+    const username = 'j1l860';
+    const repo = '7';
+    const path = '/j1L860/7/blob/main/updated_input.txt';
     const message = 'Upload updated_input.txt';
 
     const base64File = await blobToBase64(fileBlob);
