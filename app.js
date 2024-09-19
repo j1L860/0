@@ -43,9 +43,9 @@ async function processFile() {
 
 async function uploadToGitHub(fileBlob) {
     const token = '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';  // Replace with a GitHub token
-    const username = 'j1l860';
-    const repo = '7/blob';
-    const path = '/main/updated_input.txt';
+    const username = 'j1L860';
+    const repo = '7';
+    const path = '/blob/main/updated_input.txt';
     const message = 'Upload updated_input.txt';
 
     const base64File = await blobToBase64(fileBlob);
