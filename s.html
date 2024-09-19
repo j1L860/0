@@ -1,0 +1,20 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>yDNA SNP Analysis</title>
+</head>
+<body>
+    <h1>yDNA SNP Analysis</h1>
+    <form id="uploadForm">
+        <label for="inputFile">Upload Input File (FileS.txt):</label>
+        <input type="file" id="inputFile" accept=".txt"><br><br>
+        <button type="button" onclick="processFile()">Process File</button>
+    </form>
+    <div id="output"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
