@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>yDNA SNP Analysis</title>
+</head>
+<body>
+    <h1>Upload File for yDNA SNP Analysis</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="file" accept=".txt" required><br><br>
+        <button type="submit">Upload and Analyze</button>
+    </form>
+
+    <p id="statusMessage"></p>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files[0]) {
+                alert('Please select a file.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                const result = await response.json();
+                document.getElementById('statusMessage').innerText = result.message;
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('statusMessage').innerText = 'Failed to process the file.';
+            }
+        });
+    </script>
+</body>
+</html>
