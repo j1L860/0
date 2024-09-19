@@ -42,7 +42,7 @@ async function processFile() {
 }
 
 async function uploadToGitHub(fileBlob) {
-    const token = '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';  // Replace with a GitHub token
+    const token = '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';  // Replace with a GitHub token
     const username = 'j1L860';
     const repo = '0';
     const path = 'j_hg38_ref.txt';
