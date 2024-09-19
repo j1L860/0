@@ -7,14 +7,14 @@ async function processFile() {
         alert('Please upload a file.');
         return;
     }
-
+// https://raw.githubusercontent.com/your-username/your-repository/main/j_hg38_ref.txt
     // 	https://github.com/j1L860/7/blob/main/
 
     // Read the file
     const fileContent = await file.text();
 
     // Fetch reference data from GitHub
-    const refDataUrl = 'https://github.com/j1L860/7/blob/main/j_hg38_ref.txt';
+    const refDataUrl = 'https://raw.githubusercontent.com/j1L860/7/blob/main/j_hg38_ref.txt';
     const refResponse = await fetch(refDataUrl);
     const referenceData = await refResponse.text();
 
@@ -44,8 +44,8 @@ async function processFile() {
 async function uploadToGitHub(fileBlob) {
     const token = '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';  // Replace with a GitHub token
     const username = 'j1l860';
-    const repo = '7';
-    const path = '/j1L860/7/blob/main/updated_input.txt';
+    const repo = '7/blob';
+    const path = '/main/updated_input.txt';
     const message = 'Upload updated_input.txt';
 
     const base64File = await blobToBase64(fileBlob);
